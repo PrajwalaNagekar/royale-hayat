@@ -110,37 +110,47 @@ const Header = () => {
 
   return (
     <>
-      {/* Fixed Navigation Bar */}
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-        ? "bg-white/95 backdrop-blur-md shadow-md border-b border-border"
-        : "bg-white border-b border-border"
+      {/* Entire header: fixed, two-tier */}
+      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-md border-b border-border"
+          : "bg-white border-b border-border"
+      }`}>
+
+        {/* ── Tier 1: Logo ── */}
+        <div className={`flex justify-center items-center overflow-hidden transition-all duration-500 ${
+          isScrolled ? "h-10 py-1" : "h-20 md:h-24 py-3"
         }`}>
-        <div className="container mx-auto px-4 md:px-6">
-          {/* Row 1: Logo Section (Above Navbar) */}
-          <div className={`flex justify-center transition-all duration-500 overflow-hidden ${isScrolled ? "h-12 opacity-100 py-1" : "h-20 md:h-28 py-4"}`}>
-            <Link to="/" className="flex items-center justify-center">
-              <motion.img
-                src={logoFull}
-                alt="Royale Hayat Hospital"
-                className="w-auto"
-                initial={false}
-                animate={{
-                  height: isScrolled ? 32 : (window.innerWidth < 768 ? 48 : 80)
-                }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              />
-            </Link>
-          </div>
+          <Link to="/" className="flex items-center justify-center">
+            <motion.img
+              src={logoFull}
+              alt="Royale Hayat Hospital"
+              className="w-auto object-contain"
+              initial={false}
+              animate={{
+                height: isScrolled ? 28 : (window.innerWidth < 768 ? 48 : 72),
+              }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            />
+          </Link>
+        </div>
 
-          <div className={`flex items-center justify-between gap-6 pb-2 transition-all duration-500 ${isScrolled ? "pt-0" : "pt-2"}`}>
+        {/* ── Tier 2: Navbar ── */}
+        <div className={`border-t border-border/40 transition-all duration-300 ${
+          isScrolled ? "py-1.5" : "py-2"
+        }`}>
+          <div className="container mx-auto px-4 md:px-6 flex items-center justify-between gap-6">
 
-            {/* Row 2: Navigation & Utilities (No logo here anymore, logo is above) */}
-            <div className="flex xl:hidden items-center">
-              <Link to="/" className="flex-shrink-0">
-                <img src={logoFull} alt="Royale Hayat Hospital" className="h-8 w-auto" />
-              </Link>
+            {/* Mobile hamburger (left) */}
+            <div className="xl:hidden flex items-center">
+              <button
+                className="w-10 h-10 flex items-center justify-center text-foreground"
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-label="Toggle menu"
+              >
+                {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
-
 
             {/* Desktop Navigation Links */}
             <nav className="hidden xl:flex items-center gap-6 flex-1 justify-center">
@@ -262,8 +272,9 @@ const Header = () => {
                 </button>
               </div>
 
+              {/* Mobile hamburger (right side for larger mobile) */}
               <button
-                className="xl:hidden w-10 h-10 flex items-center justify-center text-foreground"
+                className="xl:hidden hidden sm:flex w-10 h-10 items-center justify-center text-foreground"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle menu"
               >
@@ -281,7 +292,7 @@ const Header = () => {
                 exit={{ opacity: 0, height: 0 }}
                 className="xl:hidden overflow-hidden"
               >
-                <nav className="flex flex-col py-4 border-t border-border">
+                <nav className="flex flex-col container mx-auto px-4 py-4 border-t border-border">
                   {navItems.map((item) => (
                     <div key={item.label}>
                       {item.href.startsWith("/") ? (
@@ -309,6 +320,7 @@ const Header = () => {
           </AnimatePresence>
         </div>
       </div>
+
 
       {/* Search Popup */}
       <AnimatePresence>
