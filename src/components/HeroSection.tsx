@@ -4,31 +4,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
   const { t } = useLanguage();
-  const [isVisible, setIsVisible] = useState(true);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Show text for 10 seconds on mount, then hide
-  useEffect(() => {
-    timeoutRef.current = setTimeout(() => setIsVisible(false), 10000);
-    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
-  }, []);
-
-  const handleMouseMove = useCallback(() => {
-    setIsVisible(true);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setIsVisible(false), 2500);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setIsVisible(false);
-  }, []);
 
   return (
     <section
-      className="relative h-[90vh] min-h-[600px] overflow-hidden cursor-default"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      className="relative h-screen min-h-[600px] overflow-hidden cursor-default"
     >
       {/* Video – minimal overlay so video is prominent */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -42,84 +21,70 @@ const HeroSection = () => {
         {/* Light base gradient – always present but subtle */}
         <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
 
-        {/* Heavier overlay fades in on hover to give text contrast */}
-        <motion.div
+        {/* Persistent background gradient for contrast */}
+        <div
           className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isVisible ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
         />
       </div>
 
-      {/* Content – revealed on hover */}
-      <AnimatePresence>
-        {isVisible && (
+      {/* Content – Permanently Visible */}
+      <div className="relative z-10 container mx-auto px-6 h-full flex flex-col pt-32 md:pt-48 justify-center">
+        <div className="max-w-3xl">
           <motion.div
-            key="hero-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center"
+            initial={{ width: 0 }}
+            animate={{ width: 56 }}
+            transition={{ duration: 0.6 }}
+            className="h-0.5 bg-primary mb-8"
+          />
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif leading-[1.15] tracking-tight mb-6"
           >
-            <div className="max-w-3xl">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: 56 }}
-                transition={{ duration: 0.6 }}
-                className="h-0.5 bg-primary mb-8"
-              />
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif leading-[1.15] tracking-tight mb-6"
-              >
-                <span className="text-foreground block">{t("exceptionalCare")}</span>
-                <span className="text-primary italic block mt-2">{t("everyStage")}</span>
-                <span className="text-foreground block mt-2">{t("everyAge")}</span>
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="text-accent font-body text-sm md:text-base italic leading-relaxed mb-5 max-w-xl"
-              >
-                {t("heroIntro")}
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 }}
-                className="text-muted-foreground font-body text-sm md:text-base leading-relaxed mb-5 max-w-xl"
-              >
-                {t("heroDesc")}
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.38 }}
-                className="text-primary-foreground font-serif text-lg md:text-xl italic mb-8 max-w-xl"
-              >
-                {t("heroTagline")}
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.45 }}
-                className="flex flex-wrap gap-4"
-              >
-                <a
-                  href="#departments"
-                  className="inline-flex items-center gap-3 border border-secondary text-foreground px-8 py-4 rounded-lg font-body text-sm tracking-widest uppercase hover:bg-secondary/30 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
-                >
-                  {t("exploreServices")}
-                </a>
-              </motion.div>
-            </div>
+            <span className="text-foreground block">{t("exceptionalCare")}</span>
+            <span className="text-primary italic block mt-2">{t("everyStage")}</span>
+            <span className="text-foreground block mt-2">{t("everyAge")}</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="text-accent font-body text-sm md:text-base italic leading-relaxed mb-5 max-w-xl"
+          >
+            {t("heroIntro")}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className="text-muted-foreground font-body text-sm md:text-base leading-relaxed mb-5 max-w-xl"
+          >
+            {t("heroDesc")}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.38 }}
+            className="text-primary-foreground font-serif text-lg md:text-xl italic mb-8 max-w-xl"
+          >
+            {t("heroTagline")}
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.45 }}
+            className="flex flex-wrap gap-4"
+          >
+            <a
+              href="#departments"
+              className="inline-flex items-center gap-3 border border-secondary text-foreground px-8 py-4 rounded-lg font-body text-sm tracking-widest uppercase hover:bg-secondary/30 transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
+            >
+              {t("exploreServices")}
+            </a>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </div>
 
       {/* Scroll indicator – always visible */}
       <motion.button

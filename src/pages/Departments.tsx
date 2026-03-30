@@ -6,7 +6,7 @@ import DepartmentsSection from "@/components/DepartmentsSection";
 
 const Departments = () => {
   return (
-    <div className="min-h-screen bg-background pt-[76px]">
+    <div className="min-h-screen bg-background pt-40">
       <Header />
       <DepartmentsSection />
       <Footer />

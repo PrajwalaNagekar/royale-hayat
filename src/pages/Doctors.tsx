@@ -94,7 +94,7 @@ const Doctors = () => {
   const isSearching = searchQuery.trim().length > 0;
 
   return (
-    <div className="min-h-screen bg-background pt-[76px]">
+    <div className="min-h-screen bg-background pt-40">
       <Header />
 
       <section className="py-16 md:py-24">
