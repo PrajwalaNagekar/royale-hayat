@@ -51,7 +51,7 @@ const TestimonialsSection = () => {
   const { lang, t } = useLanguage();
 
   return (
-    <section className="py-24 bg-popover overflow-hidden">
+    <section className="py-24 bg-popover">
       <div className="container mx-auto px-6">
         <ScrollAnimationWrapper>
           <div className="text-center mb-16">
@@ -61,8 +61,8 @@ const TestimonialsSection = () => {
         </ScrollAnimationWrapper>
       </div>
 
-      <div ref={containerRef} className="relative w-full" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
-        <motion.div className="flex gap-6 w-max px-6"
+      <div ref={containerRef} className="relative w-full overflow-hidden" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+        <motion.div className="flex gap-6 w-max px-6 py-6"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 40, ease: "linear" } }}
           style={{ animationPlayState: isPaused ? "paused" : "running" }}>

@@ -146,7 +146,7 @@ const translations: Translations = {
   // Hero
   luxuriousHospital: { en: "Welcome to Royale Hayat Hospital", ar: "مرحباً بكم في مستشفى رويال حياة" },
   exceptionalCare: { en: "Celebrating Life.", ar: "نحتفي بالحياة." },
-  everyStage: { en: "Every Stage.qq", ar: "كل مرحلة." },
+  everyStage: { en: "Every Stage.", ar: "كل مرحلة." },
   everyAge: { en: "Every Age.", ar: "كل عمر." },
   heroIntro: { en: "At life's most meaningful moments, healthcare should feel deeply human.", ar: "في أكثر لحظات الحياة أهمية، يجب أن تكون الرعاية الصحية إنسانية بعمق." },
   heroDesc: { en: "Since 2006, Royale Hayat Hospital has been celebrating life — beginning as a dedicated women's and children's hospital and growing into Kuwait's leading multi‑disciplinary healthcare destination. From birth to lifelong wellness, we deliver world‑class medical expertise with compassion, privacy, and comfort at the core.", ar: "منذ عام 2006، يحتفي مستشفى رويال حياة بالحياة — بدءاً كمستشفى مخصص للنساء والأطفال ونمواً ليصبح الوجهة الرائدة للرعاية الصحية متعددة التخصصات في الكويت. من الولادة إلى العافية مدى الحياة، نقدم خبرة طبية عالمية المستوى بالرحمة والخصوصية والراحة في جوهرها." },
